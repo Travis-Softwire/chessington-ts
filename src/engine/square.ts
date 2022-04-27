@@ -50,15 +50,20 @@ export default class Square {
     }
 
     getInclusivePathTo(otherSquare: Square): Square[] {
-        let path = [];
-        let delta: [number, number] = [0, 0];
+
         if (!(this.isVerticalTo(otherSquare)
             || this.isHorizontalTo(otherSquare)
             || this.isDiagonalTo(otherSquare))) {
 
-            path.push(otherSquare); // Teleport - i.e. a Knight
-            return path;
+            // Teleport - i.e. a Knight
+            return [otherSquare];
         }
+        return this.calculateInclusivePath(otherSquare);
+    }
+
+    private calculateInclusivePath(otherSquare: Square): Square[] {
+        let path = [];
+        let delta: [number, number] = [0, 0];
         path.push(this);
         delta[0] = clamp(this.verticalDistanceTo(otherSquare), -1, 1) * (-1);
         delta[1] = clamp(this.horizontalDistanceTo(otherSquare), -1, 1) * (-1);
@@ -71,8 +76,8 @@ export default class Square {
         return path;
     }
 
-    static createGridOfSquares(width: number, height: number): Square[][] {
-        return new Array(GameSettings.BOARD_SIZE)
+    static createArrayOfAllSquaresInGrid(width: number, height: number): Square[] {
+        const gridOfSquares: Square[][] = Array(GameSettings.BOARD_SIZE)
             .fill(undefined)
             .map((row, rowIndex) => {
                 return new Array(GameSettings.BOARD_SIZE)
@@ -80,6 +85,7 @@ export default class Square {
                     .map((_, colIndex) => Square.at(rowIndex, colIndex))
 
             });
+        return gridOfSquares.reduce((prevRow: Square[], currRow: Square[]) => prevRow.concat(currRow));
     }
 }
 

@@ -52,7 +52,7 @@ export default class Board {
         return this.getPiece(square) !== undefined;
     }
 
-    getFurthestValidMoveAlongPath(path: Square[]): Square {
+    getFurthestEmptySquareAlongPath(path: Square[]): Square {
         let lastValidSquare = path[0];
         for (let i = 1; i < path.length; i++) {
             if (this.isSquareOccupied(path[i])) {

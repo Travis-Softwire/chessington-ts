@@ -13,22 +13,19 @@ export default abstract class Piece {
     getAvailableMoves(board: Board) {
         // Create an array of the whole board and then filter based on 'canMoveTo'
         const currentSquare: Square = board.findPiece(this);
-        let allSquares: Square[][] = Square.createGridOfSquares(GameSettings.BOARD_SIZE, GameSettings.BOARD_SIZE);
-
-        let availableMoves: Square[] = allSquares.reduce((prevRow, currRow) => prevRow.concat(currRow))
+        let availableMoves: Square[] = Square.createArrayOfAllSquaresInGrid(GameSettings.BOARD_SIZE, GameSettings.BOARD_SIZE)
             .filter((square: Square) => this.hasSquareInMoveSet(currentSquare, square, board))
             .filter((square: Square) => !board.isSquareOccupied(square) || this.canTakePieceAt(square, board))
             .filter((square: Square) => this.isPathClear(currentSquare, square, board));
         return availableMoves;
-
     }
 
     canTakePieceAt(square: Square, board: Board): boolean {
         const otherPiece: Piece | undefined = board.getPiece(square);
         if (otherPiece === undefined) {
-            return  false;
+            return false;
         } else {
-            return  otherPiece.canBeTakenBy(this.player);
+            return otherPiece.canBeTakenBy(this.player);
         }
     }
 
@@ -38,9 +35,9 @@ export default abstract class Piece {
 
     isPathClear(currentSquare: Square, targetSquare: Square, board: Board): boolean {
         const pathToSquare: Square[] = currentSquare.getInclusivePathTo(targetSquare);
-        const furthestEmptySquareOnPath: Square = board.getFurthestValidMoveAlongPath(pathToSquare);
+        const furthestEmptySquareOnPath: Square = board.getFurthestEmptySquareAlongPath(pathToSquare);
         return furthestEmptySquareOnPath.equals(targetSquare)
-            || (this.canTakePieceAt(targetSquare, board) && furthestEmptySquareOnPath.isAdjacentTo(targetSquare));
+            || (furthestEmptySquareOnPath.isAdjacentTo(targetSquare) && this.canTakePieceAt(targetSquare, board));
     }
 
     moveTo(board: Board, newSquare: Square) {
