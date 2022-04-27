@@ -9,7 +9,7 @@ export default class Queen extends Piece {
         super(player);
     }
 
-    canMoveFromTo(fromSquare: Square, toSquare: Square, board: Board): boolean {
+    hasSquareInMoveSet(fromSquare: Square, toSquare: Square, board: Board): boolean {
         return fromSquare.isDiagonalTo(toSquare)
             || fromSquare.isVerticalTo(toSquare)
             || fromSquare.isHorizontalTo(toSquare);

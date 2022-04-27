@@ -10,7 +10,7 @@ export default class Pawn extends Piece {
         super(player);
     }
 
-    canMoveFromTo(fromSquare: Square, toSquare: Square, board: Board): boolean {
+    hasSquareInMoveSet(fromSquare: Square, toSquare: Square, board: Board): boolean {
         const verticalDistance: number = toSquare.verticalDistanceTo(fromSquare) * this.getDirection();
         return (fromSquare.isVerticalTo(toSquare)
                 && (verticalDistance === 1

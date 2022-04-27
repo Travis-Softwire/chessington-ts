@@ -8,7 +8,7 @@ export default class Knight extends Piece {
         super(player);
     }
 
-    canMoveFromTo(fromSquare: Square, toSquare: Square, board: Board): boolean {
+    hasSquareInMoveSet(fromSquare: Square, toSquare: Square, board: Board): boolean {
         return fromSquare.manhattanDistanceTo(toSquare) === 3
             && Math.abs(fromSquare.verticalDistanceTo(toSquare)) < 3
             && Math.abs(fromSquare.horizontalDistanceTo(toSquare)) < 3;

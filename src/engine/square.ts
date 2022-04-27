@@ -1,3 +1,5 @@
+import GameSettings from "./gameSettings";
+
 export default class Square {
     constructor(public row: number, public col: number) {
     }
@@ -69,7 +71,16 @@ export default class Square {
         return path;
     }
 
+    static createGridOfSquares(width: number, height: number): Square[][] {
+        return new Array(GameSettings.BOARD_SIZE)
+            .fill(undefined)
+            .map((row, rowIndex) => {
+                return new Array(GameSettings.BOARD_SIZE)
+                    .fill(undefined)
+                    .map((_, colIndex) => Square.at(rowIndex, colIndex))
 
+            });
+    }
 }
 
 function clamp(num: number, min: number, max: number): number {

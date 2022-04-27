@@ -8,7 +8,7 @@ export default class King extends Piece {
         super(player);
     }
 
-    canMoveFromTo(fromSquare: Square, toSquare: Square, board: Board): boolean {
+    hasSquareInMoveSet(fromSquare: Square, toSquare: Square, board: Board): boolean {
         return fromSquare.isAdjacentTo(toSquare);
     }
 
