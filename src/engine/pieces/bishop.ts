@@ -9,7 +9,11 @@ export default class Bishop extends Piece {
         super(player);
     }
 
-  canMoveFromTo(fromSquare: Square, toSquare: Square): boolean {
+  canMoveFromTo(fromSquare: Square, toSquare: Square, board: Board): boolean {
         return fromSquare.isDiagonalTo(toSquare);
+    }
+
+    isAKing(): boolean {
+        return false;
     }
 }

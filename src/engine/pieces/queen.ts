@@ -9,9 +9,13 @@ export default class Queen extends Piece {
         super(player);
     }
 
-    canMoveFromTo(fromSquare: Square, toSquare: Square): boolean {
+    canMoveFromTo(fromSquare: Square, toSquare: Square, board: Board): boolean {
         return fromSquare.isDiagonalTo(toSquare)
             || fromSquare.isVerticalTo(toSquare)
             || fromSquare.isHorizontalTo(toSquare);
+    }
+
+    isAKing(): boolean {
+        return false;
     }
 }

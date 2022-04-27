@@ -9,8 +9,12 @@ export default class Rook extends Piece {
         super(player);
     }
 
-    canMoveFromTo(fromSquare: Square, toSquare: Square): boolean {
+    canMoveFromTo(fromSquare: Square, toSquare: Square, board: Board): boolean {
         return fromSquare.isHorizontalTo(toSquare)
                 || fromSquare.isVerticalTo(toSquare);
+    }
+
+    isAKing(): boolean {
+        return false;
     }
 }

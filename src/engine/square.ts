@@ -28,6 +28,12 @@ export default class Square {
             && !this.equals(otherSquare);
     }
 
+    isAdjacentTo(otherSquare: Square): boolean {
+        return (this.isVerticalTo(otherSquare) && Math.abs(this.verticalDistanceTo(otherSquare)) === 1)
+            || (this.isHorizontalTo(otherSquare) && Math.abs(this.horizontalDistanceTo(otherSquare)) === 1)
+            || (this.isDiagonalTo(otherSquare) && this.manhattanDistanceTo(otherSquare) === 2);
+    }
+
     verticalDistanceTo(otherSquare: Square): number {
         return this.row - otherSquare.row;
     }

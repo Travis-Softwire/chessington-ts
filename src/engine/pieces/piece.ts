@@ -2,6 +2,7 @@ import Board from "../board";
 import Square from "../square";
 import Player from "../player";
 import GameSettings from "../gameSettings";
+import King from "./king";
 
 export default abstract class Piece {
     protected constructor(public readonly player: Player) {
@@ -19,10 +20,11 @@ export default abstract class Piece {
 
             });
         let availableMoves = allSquares.reduce((prevRow, currRow) => prevRow.concat(currRow))
-            .filter((square: Square) => this.canMoveFromTo(currentSquare, square))
+            .filter((square: Square) => this.canMoveFromTo(currentSquare, square, board))
             .filter((square: Square) => {
-                const pathToSquare = currentSquare.getInclusivePathTo(square);
-                return board.tracePathTo(pathToSquare).equals(square);
+                const pathToSquare: Square[] = currentSquare.getInclusivePathTo(square);
+                const furthestSquare: Square = board.getFurthestValidMoveAlongPath(pathToSquare);
+                return furthestSquare.equals(square) || (this.canTakePieceAt(square, board) && furthestSquare.isAdjacentTo(square));
             });
         return availableMoves;
 
@@ -33,5 +35,16 @@ export default abstract class Piece {
         board.movePiece(currentSquare, newSquare);
     }
 
-    abstract canMoveFromTo(fromSquare: Square, toSquare: Square): boolean;
+    abstract canMoveFromTo(fromSquare: Square, toSquare: Square, board: Board): boolean;
+
+    canTakePieceAt(square: Square, board: Board): boolean {
+        const otherPiece: Piece | undefined = board.getPiece(square);
+        if (otherPiece === undefined) {
+            return  false;
+        } else {
+            return  otherPiece.player !== this.player && !otherPiece.isAKing();
+        }
+    }
+
+    abstract isAKing(): boolean;
 }

@@ -10,11 +10,12 @@ export default class Pawn extends Piece {
         super(player);
     }
 
-    canMoveFromTo(fromSquare: Square, toSquare: Square): boolean {
-        const distance: number = toSquare.verticalDistanceTo(fromSquare) * this.getDirection();
-        return fromSquare.isVerticalTo(toSquare)
-            && (distance === 1
-                || (this.isOnStartingRow(fromSquare) && distance === 2));
+    canMoveFromTo(fromSquare: Square, toSquare: Square, board: Board): boolean {
+        const verticalDistance: number = toSquare.verticalDistanceTo(fromSquare) * this.getDirection();
+        return (fromSquare.isVerticalTo(toSquare)
+                && (verticalDistance === 1
+                    || (this.isOnStartingRow(fromSquare) && verticalDistance === 2)))
+            || this.canTakePieceAt(toSquare, board);
     }
 
     isOnStartingRow(currentSquare: Square): boolean {
@@ -28,4 +29,18 @@ export default class Pawn extends Piece {
     getDirection(): number {
         return this.player === Player.WHITE ? 1 : -1;
     }
+
+    isAKing(): boolean {
+        return false;
+    }
+
+    canTakePieceAt(square: Square, board: Board): boolean {
+        const currentSquare: Square = board.findPiece(this);
+        const verticalDistance: number = square.verticalDistanceTo(currentSquare) * this.getDirection();
+        return currentSquare.isDiagonalTo(square)
+            && verticalDistance === 1
+            && super.canTakePieceAt(square, board);
+    }
+
+
 }
