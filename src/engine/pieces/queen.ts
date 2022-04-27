@@ -9,19 +9,9 @@ export default class Queen extends Piece {
         super(player);
     }
 
-    getAvailableMoves(board: Board) {
-        const currentSquare: Square = board.findPiece(this);
-        let availableMoves: Square[][] = new Array(GameSettings.BOARD_SIZE)
-            .fill(undefined)
-            .map((row, rowIndex) => {
-                return new Array(GameSettings.BOARD_SIZE)
-                    .fill(undefined)
-                    .map((_, colIndex) => new Square(rowIndex, colIndex))
-                    .filter((square: Square) => (Math.abs(square.row - currentSquare.row) === Math.abs(square.col - currentSquare.col))
-                                || square.row === currentSquare.row
-                                || square.col === currentSquare.col)
-                    .filter((square: Square) => !(square.row === currentSquare.row && square.col === currentSquare.col));
-            });
-        return availableMoves.reduce((prevRow, currRow) => prevRow.concat(currRow));
+    canMoveFromTo(fromSquare: Square, toSquare: Square): boolean {
+        return fromSquare.isDiagonalTo(toSquare)
+            || fromSquare.isVerticalTo(toSquare)
+            || fromSquare.isHorizontalTo(toSquare);
     }
 }
