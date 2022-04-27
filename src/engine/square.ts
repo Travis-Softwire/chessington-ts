@@ -41,9 +41,32 @@ export default class Square {
             + Math.abs(this.horizontalDistanceTo(otherSquare));
     }
 
-
-
-
+    getInclusivePathTo(otherSquare: Square): Square[] {
+        let path = [];
+        let delta: [number, number] = [0, 0];
+        if (!(this.isVerticalTo(otherSquare)
+            || this.isHorizontalTo(otherSquare)
+            || this.isDiagonalTo(otherSquare))) {
+            path.push(otherSquare);
+            // Teleport - i.e. a Knight
+            return path;
+        }
+        path.push(this);
+        delta[0] = clamp(this.verticalDistanceTo(otherSquare), -1, 1) * (-1);
+        delta[1] = clamp(this.horizontalDistanceTo(otherSquare), -1, 1) * (-1);
+        let nextSquare = Square.at(this.row + delta[0], this.col + delta[1]);
+        while (!nextSquare.equals(otherSquare)) {
+            path.push(nextSquare);
+            nextSquare = Square.at(nextSquare.row + delta[0], nextSquare.col + delta[1]);
+        }
+        path.push(nextSquare);
+        return path;
+    }
 
 
 }
+
+function clamp(num: number, min: number, max: number): number {
+    return Math.min(Math.max(num, min), max);
+}
+

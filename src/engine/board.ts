@@ -47,4 +47,19 @@ export default class Board {
             this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
         }
     }
+
+    isSquareOccupied(square: Square): boolean {
+        return this.getPiece(square) !== undefined;
+    }
+
+    tracePathTo(path: Square[]): Square {
+        let lastValidSquare = path[0];
+        for (let i = 1; i < path.length; i++) {
+            if (this.isSquareOccupied(path[i])) {
+                return lastValidSquare;
+            }
+            lastValidSquare = path[i];
+        }
+        return lastValidSquare;
+    }
 }

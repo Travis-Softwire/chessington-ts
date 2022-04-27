@@ -10,15 +10,22 @@ export default class Piece {
     getAvailableMoves(board: Board) {
         // Create an array of the whole board and then filter based on 'canMoveTo'
         const currentSquare: Square = board.findPiece(this);
-        let availableMoves: Square[][] = new Array(GameSettings.BOARD_SIZE)
+        let allSquares: Square[][] = new Array(GameSettings.BOARD_SIZE)
             .fill(undefined)
             .map((row, rowIndex) => {
                 return new Array(GameSettings.BOARD_SIZE)
                     .fill(undefined)
                     .map((_, colIndex) => Square.at(rowIndex, colIndex))
-                    .filter((square: Square) => this.canMoveFromTo(currentSquare, square));
+
             });
-        return availableMoves.reduce((prevRow, currRow) => prevRow.concat(currRow));
+        let availableMoves = allSquares.reduce((prevRow, currRow) => prevRow.concat(currRow))
+            .filter((square: Square) => this.canMoveFromTo(currentSquare, square))
+            .filter((square: Square) => {
+                const pathToSquare = currentSquare.getInclusivePathTo(square);
+                return board.tracePathTo(pathToSquare).equals(square);
+            });
+        return availableMoves;
+
     }
 
     moveTo(board: Board, newSquare: Square) {
