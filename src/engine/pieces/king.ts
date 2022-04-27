@@ -12,7 +12,7 @@ export default class King extends Piece {
         return fromSquare.isAdjacentTo(toSquare);
     }
 
-    isAKing(): boolean {
-        return true;
+    canBeTakenBy(player: Player): boolean {
+        return false;
     }
 }

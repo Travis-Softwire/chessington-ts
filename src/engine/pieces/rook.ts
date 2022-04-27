@@ -13,8 +13,4 @@ export default class Rook extends Piece {
         return fromSquare.isHorizontalTo(toSquare)
                 || fromSquare.isVerticalTo(toSquare);
     }
-
-    isAKing(): boolean {
-        return false;
-    }
 }

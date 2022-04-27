@@ -30,10 +30,6 @@ export default class Pawn extends Piece {
         return this.player === Player.WHITE ? 1 : -1;
     }
 
-    isAKing(): boolean {
-        return false;
-    }
-
     canTakePieceAt(square: Square, board: Board): boolean {
         const currentSquare: Square = board.findPiece(this);
         const verticalDistance: number = square.verticalDistanceTo(currentSquare) * this.getDirection();

@@ -14,8 +14,4 @@ export default class Queen extends Piece {
             || fromSquare.isVerticalTo(toSquare)
             || fromSquare.isHorizontalTo(toSquare);
     }
-
-    isAKing(): boolean {
-        return false;
-    }
 }

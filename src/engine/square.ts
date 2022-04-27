@@ -53,8 +53,8 @@ export default class Square {
         if (!(this.isVerticalTo(otherSquare)
             || this.isHorizontalTo(otherSquare)
             || this.isDiagonalTo(otherSquare))) {
-            path.push(otherSquare);
-            // Teleport - i.e. a Knight
+
+            path.push(otherSquare); // Teleport - i.e. a Knight
             return path;
         }
         path.push(this);

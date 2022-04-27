@@ -19,13 +19,15 @@ export default abstract class Piece {
                     .map((_, colIndex) => Square.at(rowIndex, colIndex))
 
             });
+
         let availableMoves = allSquares.reduce((prevRow, currRow) => prevRow.concat(currRow))
             .filter((square: Square) => this.canMoveFromTo(currentSquare, square, board))
-            .filter((square: Square) => !(board.getPiece(square) !== undefined && !this.canTakePieceAt(square, board)))
+            .filter((square: Square) => !board.isSquareOccupied(square) || this.canTakePieceAt(square, board))
             .filter((square: Square) => {
                 const pathToSquare: Square[] = currentSquare.getInclusivePathTo(square);
-                const furthestSquare: Square = board.getFurthestValidMoveAlongPath(pathToSquare);
-                return furthestSquare.equals(square) || (this.canTakePieceAt(square, board) && furthestSquare.isAdjacentTo(square));
+                const furthestEmptySquareOnPath: Square = board.getFurthestValidMoveAlongPath(pathToSquare);
+                return furthestEmptySquareOnPath.equals(square)
+                    || (this.canTakePieceAt(square, board) && furthestEmptySquareOnPath.isAdjacentTo(square));
             });
         return availableMoves;
 
@@ -43,9 +45,11 @@ export default abstract class Piece {
         if (otherPiece === undefined) {
             return  false;
         } else {
-            return  otherPiece.player !== this.player && !otherPiece.isAKing();
+            return  otherPiece.canBeTakenBy(this.player);
         }
     }
 
-    abstract isAKing(): boolean;
+    canBeTakenBy(player: Player): boolean {
+        return this.player !== player;
+    }
 }
