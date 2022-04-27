@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1967d0c3-fa0c-4be1-bd90-0a10a714b63d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/board.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/board.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/pieces/bishop.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/bishop.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/pieces/king.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/king.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/pieces/knight.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/knight.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/pieces/pawn.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/pawn.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/pieces/piece.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/piece.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/pieces/queen.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/queen.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/pieces/rook.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/rook.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/square.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/square.ts" afterDir="false" />
-    </list>
+    <list default="true" id="1967d0c3-fa0c-4be1-bd90-0a10a714b63d" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,11 +27,34 @@
     "WebServerToolWindowFactoryState": "false",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "last_opened_file_path": "C:/Users/Travis-Softwire/Documents/Work/Training/chessington-ts",
+    "nodejs.mocha.mocha_node_package_dir": "C:/Users/Travis-Softwire/Documents/Work/Training/chessington-ts/node_modules/mocha",
     "nodejs_package_manager_path": "npm",
     "ts.external.directory.path": "C:\\Users\\Travis-Softwire\\Documents\\Work\\Training\\chessington-ts\\node_modules\\typescript\\lib"
   }
 }]]></component>
-  <component name="RunManager" selected="Mocha.All Tests" />
+  <component name="RunManager" selected="Mocha.All Tests">
+    <configuration name="Pawn.cannot move if there is a piece in front" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require ts-node/register</extra-mocha-options>
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/tests/engine/pieces/pawn.spec.ts</test-file>
+      <test-names>
+        <name value="Pawn" />
+        <name value="cannot move if there is a piece in front" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Mocha.Pawn.cannot move if there is a piece in front" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -51,7 +63,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1651056159992</updated>
-      <workItem from="1651056161910" duration="20381000" />
+      <workItem from="1651056161910" duration="21967000" />
     </task>
     <servers />
   </component>
@@ -68,17 +80,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/tests/engine/pieces/pawn.spec.ts</url>
-          <line>88</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

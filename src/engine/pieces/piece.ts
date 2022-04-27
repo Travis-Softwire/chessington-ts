@@ -21,6 +21,7 @@ export default abstract class Piece {
             });
         let availableMoves = allSquares.reduce((prevRow, currRow) => prevRow.concat(currRow))
             .filter((square: Square) => this.canMoveFromTo(currentSquare, square, board))
+            .filter((square: Square) => !(board.getPiece(square) !== undefined && !this.canTakePieceAt(square, board)))
             .filter((square: Square) => {
                 const pathToSquare: Square[] = currentSquare.getInclusivePathTo(square);
                 const furthestSquare: Square = board.getFurthestValidMoveAlongPath(pathToSquare);
