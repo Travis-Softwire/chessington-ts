@@ -3,8 +3,8 @@ import Square from "../square";
 import Player from "../player";
 import GameSettings from "../gameSettings";
 
-export default class Piece {
-    constructor(public readonly player: Player) {
+export default abstract class Piece {
+    protected constructor(public readonly player: Player) {
     }
 
     getAvailableMoves(board: Board) {
@@ -33,7 +33,5 @@ export default class Piece {
         board.movePiece(currentSquare, newSquare);
     }
 
-    canMoveFromTo(fromSquare: Square, toSquare: Square): boolean {
-        throw new Error('This method must be implemented, and return a boolean determining whether the piece can move to that square');
-    }
+    abstract canMoveFromTo(fromSquare: Square, toSquare: Square): boolean;
 }
