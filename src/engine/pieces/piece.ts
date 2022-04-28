@@ -11,12 +11,12 @@ export default abstract class Piece {
     abstract hasSquareInMoveSet(fromSquare: Square, toSquare: Square, board: Board): boolean;
 
     getAvailableMoves(board: Board) {
-        // Create an array of the whole board and then filter based on 'canMoveTo'
         const currentSquare: Square = board.findPiece(this);
         let availableMoves: Square[] = Square.createArrayOfAllSquaresInGrid(GameSettings.BOARD_SIZE, GameSettings.BOARD_SIZE)
-            .filter((square: Square) => this.hasSquareInMoveSet(currentSquare, square, board))
-            .filter((square: Square) => !board.isSquareOccupied(square) || this.canTakePieceAt(square, board))
-            .filter((square: Square) => this.isPathClear(currentSquare, square, board));
+            .filter((square: Square) =>
+                this.hasSquareInMoveSet(currentSquare, square, board)
+                && (!board.isSquareOccupied(square) || this.canTakePieceAt(square, board))
+                && this.isPathClear(currentSquare, square, board));
         return availableMoves;
     }
 

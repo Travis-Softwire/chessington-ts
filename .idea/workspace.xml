@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1967d0c3-fa0c-4be1-bd90-0a10a714b63d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/engine/pieces/piece.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/piece.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +121,7 @@
       <option name="presentableId" value="Default" />
       <updated>1651056159992</updated>
       <workItem from="1651056161910" duration="28135000" />
-      <workItem from="1651130861310" duration="9679000" />
+      <workItem from="1651130861310" duration="11963000" />
     </task>
     <servers />
   </component>
@@ -137,17 +138,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/engine/board.ts</url>
-          <line>43</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
