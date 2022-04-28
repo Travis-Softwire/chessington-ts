@@ -42,9 +42,13 @@ export default class Pawn extends Piece {
     canEnPassantFromTo(fromSquare: Square, toSquare: Square, board: Board): boolean {
         const verticalDistance: number = toSquare.verticalDistanceTo(fromSquare) * this.getDirection();
         const captureSquare: Square = Square.at(fromSquare.row, toSquare.col);
+        const pieceToCapture: Piece | undefined = board.getPiece(captureSquare);
+        if (pieceToCapture === undefined) {
+            return false;
+        }
         return fromSquare.isDiagonalTo(toSquare)
             && verticalDistance === 1
-            && board.isSquareOccupied(captureSquare);
+            && pieceToCapture instanceof Pawn;
     }
 
 

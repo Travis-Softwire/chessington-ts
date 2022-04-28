@@ -5,6 +5,7 @@ import King from '../../../src/engine/pieces/king';
 import Board from '../../../src/engine/board';
 import Player from '../../../src/engine/player';
 import Square from '../../../src/engine/square';
+import Knight from "../../../src/engine/pieces/knight";
 
 describe('Pawn', () => {
 
@@ -98,6 +99,17 @@ describe('Pawn', () => {
            const moves = pawn.getAvailableMoves(board);
 
            moves.should.deep.include(Square.at(5, 3));
+        });
+
+        it('cannot use en passant on a piece other than a pawn', () => {
+            const pawn = new Pawn(Player.WHITE);
+            const opposingKnight = new Knight(Player.BLACK);
+            board.setPiece(Square.at(4, 4), pawn);
+            board.setPiece(Square.at(4, 3), opposingKnight);
+
+            const moves = pawn.getAvailableMoves(board);
+
+            moves.should.not.deep.include(Square.at(5, 3));
         });
 
     });
@@ -212,6 +224,17 @@ describe('Pawn', () => {
         const moves = pawn.getAvailableMoves(board);
 
         moves.should.deep.include(Square.at(2, 3));
+    });
+
+    it('cannot use en passant on a piece other than a pawn', () => {
+       const pawn = new Pawn(Player.BLACK);
+       const opposingKnight = new Knight(Player.WHITE);
+       board.setPiece(Square.at(3, 4), pawn);
+       board.setPiece(Square.at(3, 3), opposingKnight);
+
+       const moves = pawn.getAvailableMoves(board);
+
+       moves.should.not.deep.include(Square.at(2, 3));
     });
 
 });
