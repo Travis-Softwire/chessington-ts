@@ -6,6 +6,9 @@ import Board from '../../../src/engine/board';
 import Player from '../../../src/engine/player';
 import Square from '../../../src/engine/square';
 import Knight from "../../../src/engine/pieces/knight";
+import GameSettings from "../../../src/engine/gameSettings";
+import gameSettings from "../../../src/engine/gameSettings";
+import Piece from "../../../src/engine/pieces/piece";
 
 describe('Pawn', () => {
 
@@ -138,11 +141,21 @@ describe('Pawn', () => {
             board.setPiece(Square.at(6, 3), opposingPawn);
             rook.moveTo(board, Square.at(0, 1));
             opposingPawn.moveTo(board, Square.at(4, 3));
+
             pawn.moveTo(board, Square.at(5, 3));
 
             const opposingPawnHasBeenTaken = !board.isSquareOccupied(Square.at(4, 3));
-
             opposingPawnHasBeenTaken.should.be.true;
+        });
+
+        it('should be promoted to a queen if it gets to the end of the board', () => {
+            const pawn = new Pawn(Player.WHITE);
+            board.setPiece(Square.at(GameSettings.BOARD_SIZE - 2, 0), pawn);
+
+            pawn.moveTo(board, Square.at(GameSettings.BOARD_SIZE - 1, 0));
+
+            const piece: Piece | undefined = board.getPiece(Square.at(GameSettings.BOARD_SIZE - 1, 0));
+            piece?.should.be.a('Queen');
         });
 
     });
@@ -281,6 +294,16 @@ describe('Pawn', () => {
             const opposingPawnHasBeenTaken: boolean = !board.isSquareOccupied(Square.at(3, 3));
 
             opposingPawnHasBeenTaken.should.be.true;
+        });
+
+        it('should be promoted to a queen if it gets to the end of the board', () => {
+            const pawn = new Pawn(Player.BLACK);
+            board.setPiece(Square.at(1, 0), pawn);
+
+            pawn.moveTo(board, Square.at(0, 0));
+
+            const piece: Piece | undefined = board.getPiece(Square.at(0, 0));
+            piece?.should.be.a('Queen');
         });
     });
 
