@@ -91,7 +91,7 @@ describe('Pawn', () => {
            const rook = new Rook(Player.WHITE);
            const opposingPawn = new Pawn(Player.BLACK);
            board.setPiece(Square.at(4, 4), pawn);
-           board.setPiece(Square.at(0, 0), rook);
+           board.setPiece(Square.at(0, 0), rook); //Because white has to move first
            board.setPiece(Square.at(6, 3), opposingPawn);
            rook.moveTo(board, Square.at(0, 1));
            opposingPawn.moveTo(board, Square.at(4, 3));
@@ -106,6 +106,23 @@ describe('Pawn', () => {
             const opposingKnight = new Knight(Player.BLACK);
             board.setPiece(Square.at(4, 4), pawn);
             board.setPiece(Square.at(4, 3), opposingKnight);
+
+            const moves = pawn.getAvailableMoves(board);
+
+            moves.should.not.deep.include(Square.at(5, 3));
+        });
+
+        it("can only take a piece using en passant immediately after it's first move", () => {
+            const pawn = new Pawn(Player.WHITE);
+            const rook = new Rook(Player.WHITE); //Because white has to move first
+            const opposingPawn = new Pawn(Player.BLACK);
+            board.setPiece(Square.at(4, 4), pawn);
+            board.setPiece(Square.at(0, 0), rook);
+            board.setPiece(Square.at(6, 3), opposingPawn);
+            rook.moveTo(board, Square.at(0, 1));
+            opposingPawn.moveTo(board, Square.at(5, 3));
+            rook.moveTo(board, Square.at(0, 0));
+            opposingPawn.moveTo(board, Square.at(4, 3));
 
             const moves = pawn.getAvailableMoves(board);
 
@@ -190,6 +207,43 @@ describe('Pawn', () => {
 
             moves.should.not.deep.include(Square.at(3, 3));
         });
+
+        it('can move diagonally to space behind an opposing pawn which has just moved forward two spaces', () => {
+            const pawn = new Pawn(Player.BLACK);
+            const opposingPawn = new Pawn(Player.WHITE);
+            board.setPiece(Square.at(3, 4), pawn);
+            board.setPiece(Square.at(1, 3), opposingPawn);
+            opposingPawn.moveTo(board, Square.at(3, 3));
+
+            const moves = pawn.getAvailableMoves(board);
+
+            moves.should.deep.include(Square.at(2, 3));
+        });
+
+        it('cannot use en passant on a piece other than a pawn', () => {
+            const pawn = new Pawn(Player.BLACK);
+            const opposingKnight = new Knight(Player.WHITE);
+            board.setPiece(Square.at(3, 4), pawn);
+            board.setPiece(Square.at(3, 3), opposingKnight);
+
+            const moves = pawn.getAvailableMoves(board);
+
+            moves.should.not.deep.include(Square.at(2, 3));
+        });
+
+        it("can only take a piece using en passant immediately after it's first move", () => {
+            const pawn = new Pawn(Player.BLACK);
+            const opposingPawn = new Pawn(Player.WHITE);
+            board.setPiece(Square.at(4, 4), pawn);
+            board.setPiece(Square.at(1, 3), opposingPawn);
+            opposingPawn.moveTo(board, Square.at(2, 3));
+            pawn.moveTo(board, Square.at(3, 4));
+            opposingPawn.moveTo(board, Square.at(3, 3));
+
+            const moves = pawn.getAvailableMoves(board);
+
+            moves.should.not.deep.include(Square.at(2, 3));
+        });
     });
 
     it('cannot move if there is a piece in front', () => {
@@ -212,29 +266,6 @@ describe('Pawn', () => {
         const moves = pawn.getAvailableMoves(board);
 
         moves.should.not.deep.include(Square.at(4, 3));
-    });
-
-    it('can move diagonally to space behind an opposing pawn which has just moved forward two spaces', () => {
-        const pawn = new Pawn(Player.BLACK);
-        const opposingPawn = new Pawn(Player.WHITE);
-        board.setPiece(Square.at(3, 4), pawn);
-        board.setPiece(Square.at(1, 3), opposingPawn);
-        opposingPawn.moveTo(board, Square.at(3, 3));
-
-        const moves = pawn.getAvailableMoves(board);
-
-        moves.should.deep.include(Square.at(2, 3));
-    });
-
-    it('cannot use en passant on a piece other than a pawn', () => {
-       const pawn = new Pawn(Player.BLACK);
-       const opposingKnight = new Knight(Player.WHITE);
-       board.setPiece(Square.at(3, 4), pawn);
-       board.setPiece(Square.at(3, 3), opposingKnight);
-
-       const moves = pawn.getAvailableMoves(board);
-
-       moves.should.not.deep.include(Square.at(2, 3));
     });
 
 });
