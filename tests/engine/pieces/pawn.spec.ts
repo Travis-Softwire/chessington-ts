@@ -85,6 +85,18 @@ describe('Pawn', () => {
             moves.should.not.deep.include(Square.at(5, 3));
         });
 
+        it('can move diagonally to space behind an opposing pawn which has just moved forward two spaces', () => {
+           const pawn = new Pawn(Player.WHITE);
+           const opposingPawn = new Pawn(Player.BLACK);
+           board.setPiece(Square.at(4, 4), pawn);
+           board.setPiece(Square.at(6, 3), opposingPawn);
+           opposingPawn.moveTo(board, Square.at(6, 3));
+
+           const moves = pawn.getAvailableMoves(board);
+
+           moves.should.deep.include(Square.at(5, 3));
+        });
+
     });
 
     describe('black pawns', () => {
@@ -185,6 +197,18 @@ describe('Pawn', () => {
         const moves = pawn.getAvailableMoves(board);
 
         moves.should.not.deep.include(Square.at(4, 3));
+    });
+
+    it('can move diagonally to space behind an opposing pawn which has just moved forward two spaces', () => {
+        const pawn = new Pawn(Player.BLACK);
+        const opposingPawn = new Pawn(Player.WHITE);
+        board.setPiece(Square.at(3, 4), pawn);
+        board.setPiece(Square.at(1, 3), opposingPawn);
+        opposingPawn.moveTo(board, Square.at(3, 3));
+
+        const moves = pawn.getAvailableMoves(board);
+
+        moves.should.deep.include(Square.at(2, 3));
     });
 
 });
