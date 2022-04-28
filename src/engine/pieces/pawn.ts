@@ -46,25 +46,25 @@ export default class Pawn extends Piece {
 
     canTakePieceAt(square: Square, board: Board): boolean {
         const currentSquare: Square = board.findPiece(this);
-        const verticalDistance: number = square.verticalDistanceTo(currentSquare) * this.getDirection();
-        return currentSquare.isDiagonalTo(square)
-            && verticalDistance === 1
-            && super.canTakePieceAt(square, board);
+        return this.canAttackFromTo(currentSquare, square)
+                && super.canTakePieceAt(square, board);
     }
 
     canEnPassantFromTo(fromSquare: Square, toSquare: Square, board: Board): boolean {
-        const verticalDistance: number = toSquare.verticalDistanceTo(fromSquare) * this.getDirection();
         const captureSquare: Square = Square.at(fromSquare.row, toSquare.col);
         const pieceToCapture: Piece | undefined = board.getPiece(captureSquare);
         if (pieceToCapture === undefined) {
             return false;
         }
         const lastTurn: number = board.getTurnsPlayed();
-        return fromSquare.isDiagonalTo(toSquare)
-            && verticalDistance === 1
+        return this.canAttackFromTo(fromSquare, toSquare)
             && pieceToCapture instanceof Pawn
             && pieceToCapture.firstTurnNumber === lastTurn;
     }
 
-
+    canAttackFromTo(fromSquare: Square, toSquare: Square): boolean {
+        const verticalDistance: number = toSquare.verticalDistanceTo(fromSquare) * this.getDirection();
+        return fromSquare.isDiagonalTo(toSquare)
+            && verticalDistance === 1;
+    }
 }

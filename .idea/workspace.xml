@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1967d0c3-fa0c-4be1-bd90-0a10a714b63d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/board.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/board.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/pieces/pawn.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/pawn.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -122,7 +120,7 @@
       <option name="presentableId" value="Default" />
       <updated>1651056159992</updated>
       <workItem from="1651056161910" duration="28135000" />
-      <workItem from="1651130861310" duration="8199000" />
+      <workItem from="1651130861310" duration="8847000" />
     </task>
     <servers />
   </component>
