@@ -129,6 +129,22 @@ describe('Pawn', () => {
             moves.should.not.deep.include(Square.at(5, 3));
         });
 
+        it('should remove opposing piece from the board when using en passant', () => {
+            const pawn = new Pawn(Player.WHITE);
+            const rook = new Rook(Player.WHITE);
+            const opposingPawn = new Pawn(Player.BLACK);
+            board.setPiece(Square.at(4, 4), pawn);
+            board.setPiece(Square.at(0, 0), rook); //Because white has to move first
+            board.setPiece(Square.at(6, 3), opposingPawn);
+            rook.moveTo(board, Square.at(0, 1));
+            opposingPawn.moveTo(board, Square.at(4, 3));
+            pawn.moveTo(board, Square.at(5, 3));
+
+            const opposingPawnHasBeenTaken = !board.isSquareOccupied(Square.at(4, 3));
+
+            opposingPawnHasBeenTaken.should.be.true;
+        });
+
     });
 
     describe('black pawns', () => {
@@ -249,6 +265,22 @@ describe('Pawn', () => {
             const moves = pawn.getAvailableMoves(board);
 
             moves.should.not.deep.include(Square.at(2, 3));
+        });
+
+        it('should remove opposing piece from the board when using en passant', () => {
+            const pawn = new Pawn(Player.BLACK);
+            const rook = new Rook(Player.BLACK);
+            const opposingPawn = new Pawn(Player.WHITE);
+            board.setPiece(Square.at(3, 4), pawn);
+            board.setPiece(Square.at(0, 0), rook);
+            board.setPiece(Square.at(1, 3), opposingPawn);
+            rook.moveTo(board, Square.at(0, 1)); //Black must move first for these tests...
+            opposingPawn.moveTo(board, Square.at(3, 3));
+            pawn.moveTo(board, Square.at(2, 3));
+
+            const opposingPawnHasBeenTaken: boolean = !board.isSquareOccupied(Square.at(3, 3));
+
+            opposingPawnHasBeenTaken.should.be.true;
         });
     });
 

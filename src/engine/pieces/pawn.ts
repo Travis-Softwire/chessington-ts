@@ -23,6 +23,10 @@ export default class Pawn extends Piece {
 
     moveTo(board: Board, newSquare: Square) {
         super.moveTo(board, newSquare);
+        /*const currentSquare = board.findPiece(this);
+        if (this.canEnPassantFromTo(currentSquare, newSquare, board)) {
+            board.capturePieceWithoutMove(Square.at(currentSquare.row, newSquare.col));
+        }*/
         if (this.firstTurnNumber === 0) {
             this.firstTurnNumber = board.getTurnsPlayed();
         }

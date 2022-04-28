@@ -49,6 +49,10 @@ export default class Board {
         }
     }
 
+    capturePieceWithoutMove(captureSquare: Square): void {
+        this.setPiece(captureSquare, undefined);
+    }
+
     nextTurn(): void {
         this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
         this.turnCount++;
