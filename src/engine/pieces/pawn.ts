@@ -1,7 +1,6 @@
 import Piece from './piece';
 import Board from "../board";
 import Player from "../player";
-import player from "../player";
 import Square from "../square";
 import GameSettings from "../gameSettings";
 
@@ -26,9 +25,14 @@ export default class Pawn extends Piece {
         if (this.canEnPassantFromTo(currentSquare, newSquare, board)) {
             board.capturePieceWithoutMove(Square.at(currentSquare.row, newSquare.col));
         }
+
         super.moveTo(board, newSquare);
+
         if (this.firstTurnNumber === 0) {
             this.firstTurnNumber = board.getTurnsPlayed();
+        }
+        if (this.isOnLastRow(newSquare)) {
+            board.queenPieceAt(newSquare, this.player);
         }
     }
 
@@ -38,6 +42,14 @@ export default class Pawn extends Piece {
 
     getStartingRow(): number {
         return this.player === Player.WHITE ? 1 : GameSettings.BOARD_SIZE - 2;
+    }
+
+    isOnLastRow(square: Square): boolean {
+        return square.row === this.getLastRow();
+    }
+
+    getLastRow(): number {
+        return this.player === Player.WHITE ? GameSettings.BOARD_SIZE - 1 : 0;
     }
 
     getDirection(): number {

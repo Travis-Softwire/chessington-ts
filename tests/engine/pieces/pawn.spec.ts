@@ -9,6 +9,7 @@ import Knight from "../../../src/engine/pieces/knight";
 import GameSettings from "../../../src/engine/gameSettings";
 import gameSettings from "../../../src/engine/gameSettings";
 import Piece from "../../../src/engine/pieces/piece";
+import Queen from "../../../src/engine/pieces/queen";
 
 describe('Pawn', () => {
 
@@ -154,8 +155,8 @@ describe('Pawn', () => {
 
             pawn.moveTo(board, Square.at(GameSettings.BOARD_SIZE - 1, 0));
 
-            const piece: Piece | undefined = board.getPiece(Square.at(GameSettings.BOARD_SIZE - 1, 0));
-            piece?.should.be.a('Queen');
+            const pieceIsAQueen = board.getPiece(Square.at(GameSettings.BOARD_SIZE - 1, 0)) instanceof Queen;
+            pieceIsAQueen.should.be.true;
         });
 
     });
@@ -302,8 +303,8 @@ describe('Pawn', () => {
 
             pawn.moveTo(board, Square.at(0, 0));
 
-            const piece: Piece | undefined = board.getPiece(Square.at(0, 0));
-            piece?.should.be.a('Queen');
+            const pieceIsAQueen = board.getPiece(Square.at(0, 0)) instanceof Queen;
+            pieceIsAQueen.should.be.true;
         });
     });
 

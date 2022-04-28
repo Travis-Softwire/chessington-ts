@@ -2,6 +2,7 @@ import Player from './player';
 import GameSettings from './gameSettings';
 import Square from './square';
 import Piece from "./pieces/piece";
+import Queen from "./pieces/queen";
 
 export default class Board {
     private readonly board: (Piece | undefined)[][];
@@ -51,6 +52,10 @@ export default class Board {
 
     capturePieceWithoutMove(captureSquare: Square): void {
         this.setPiece(captureSquare, undefined);
+    }
+
+    queenPieceAt(square: Square, player: Player): void {
+        this.setPiece(square, new Queen(player));
     }
 
     nextTurn(): void {
