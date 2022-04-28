@@ -210,9 +210,12 @@ describe('Pawn', () => {
 
         it('can move diagonally to space behind an opposing pawn which has just moved forward two spaces', () => {
             const pawn = new Pawn(Player.BLACK);
+            const rook = new Rook(Player.BLACK);
             const opposingPawn = new Pawn(Player.WHITE);
             board.setPiece(Square.at(3, 4), pawn);
+            board.setPiece(Square.at(0, 0), rook);
             board.setPiece(Square.at(1, 3), opposingPawn);
+            rook.moveTo(board, Square.at(0, 1)); //Black must move first for these tests...
             opposingPawn.moveTo(board, Square.at(3, 3));
 
             const moves = pawn.getAvailableMoves(board);
@@ -233,9 +236,12 @@ describe('Pawn', () => {
 
         it("can only take a piece using en passant immediately after it's first move", () => {
             const pawn = new Pawn(Player.BLACK);
+            const rook = new Rook(Player.BLACK);
             const opposingPawn = new Pawn(Player.WHITE);
             board.setPiece(Square.at(4, 4), pawn);
+            board.setPiece(Square.at(0, 0), rook);
             board.setPiece(Square.at(1, 3), opposingPawn);
+            rook.moveTo(board, Square.at(0, 1)); // Black must move first in these tests...
             opposingPawn.moveTo(board, Square.at(2, 3));
             pawn.moveTo(board, Square.at(3, 4));
             opposingPawn.moveTo(board, Square.at(3, 3));

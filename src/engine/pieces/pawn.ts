@@ -10,6 +10,8 @@ export default class Pawn extends Piece {
         super(player);
     }
 
+    private firstTurnNumber = 0;
+
     hasSquareInMoveSet(fromSquare: Square, toSquare: Square, board: Board): boolean {
         const verticalDistance: number = toSquare.verticalDistanceTo(fromSquare) * this.getDirection();
         return (fromSquare.isVerticalTo(toSquare)
@@ -17,6 +19,13 @@ export default class Pawn extends Piece {
                     || (this.isOnStartingRow(fromSquare) && verticalDistance === 2)))
             || this.canTakePieceAt(toSquare, board)
             || this.canEnPassantFromTo(fromSquare, toSquare, board);
+    }
+
+    moveTo(board: Board, newSquare: Square) {
+        super.moveTo(board, newSquare);
+        if (this.firstTurnNumber === 0) {
+            this.firstTurnNumber = board.getTurnsPlayed();
+        }
     }
 
     isOnStartingRow(currentSquare: Square): boolean {
@@ -46,9 +55,11 @@ export default class Pawn extends Piece {
         if (pieceToCapture === undefined) {
             return false;
         }
+        const lastTurn: number = board.getTurnsPlayed();
         return fromSquare.isDiagonalTo(toSquare)
             && verticalDistance === 1
-            && pieceToCapture instanceof Pawn;
+            && pieceToCapture instanceof Pawn
+            && pieceToCapture.firstTurnNumber === lastTurn;
     }
 
 

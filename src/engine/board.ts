@@ -6,6 +6,7 @@ import Piece from "./pieces/piece";
 export default class Board {
     private readonly board: (Piece | undefined)[][];
     private currentPlayer: Player;
+    private  turnCount: number = 0;
 
     constructor(currentPlayer?: Player) {
         this.currentPlayer = currentPlayer ? currentPlayer : Player.WHITE;
@@ -44,8 +45,17 @@ export default class Board {
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
             this.setPiece(toSquare, movingPiece);
             this.setPiece(fromSquare, undefined);
-            this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
+            this.nextTurn();
         }
+    }
+
+    nextTurn(): void {
+        this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
+        this.turnCount++;
+    }
+
+    getTurnsPlayed(): number {
+        return this.turnCount;
     }
 
     isSquareOccupied(square: Square): boolean {
