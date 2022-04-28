@@ -87,10 +87,13 @@ describe('Pawn', () => {
 
         it('can move diagonally to space behind an opposing pawn which has just moved forward two spaces', () => {
            const pawn = new Pawn(Player.WHITE);
+           const rook = new Rook(Player.WHITE);
            const opposingPawn = new Pawn(Player.BLACK);
            board.setPiece(Square.at(4, 4), pawn);
+           board.setPiece(Square.at(0, 0), rook);
            board.setPiece(Square.at(6, 3), opposingPawn);
-           opposingPawn.moveTo(board, Square.at(6, 3));
+           rook.moveTo(board, Square.at(0, 1));
+           opposingPawn.moveTo(board, Square.at(4, 3));
 
            const moves = pawn.getAvailableMoves(board);
 

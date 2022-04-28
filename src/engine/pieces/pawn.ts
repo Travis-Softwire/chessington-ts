@@ -15,7 +15,8 @@ export default class Pawn extends Piece {
         return (fromSquare.isVerticalTo(toSquare)
                 && (verticalDistance === 1
                     || (this.isOnStartingRow(fromSquare) && verticalDistance === 2)))
-            || this.canTakePieceAt(toSquare, board);
+            || this.canTakePieceAt(toSquare, board)
+            || this.canEnPassantFromTo(fromSquare, toSquare, board);
     }
 
     isOnStartingRow(currentSquare: Square): boolean {
@@ -36,6 +37,14 @@ export default class Pawn extends Piece {
         return currentSquare.isDiagonalTo(square)
             && verticalDistance === 1
             && super.canTakePieceAt(square, board);
+    }
+
+    canEnPassantFromTo(fromSquare: Square, toSquare: Square, board: Board): boolean {
+        const verticalDistance: number = toSquare.verticalDistanceTo(fromSquare) * this.getDirection();
+        const captureSquare: Square = Square.at(fromSquare.row, toSquare.col);
+        return fromSquare.isDiagonalTo(toSquare)
+            && verticalDistance === 1
+            && board.isSquareOccupied(captureSquare);
     }
 
 
